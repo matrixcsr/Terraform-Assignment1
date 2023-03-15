@@ -11,6 +11,7 @@ resource "azurerm_public_ip" "vm_public_ip" {
   location            = var.location
   resource_group_name = var.rg_name
   allocation_method   = "Dynamic"
+  domain_name_label   = "${var.dns_label}-gov"
 }
 
 resource "azurerm_network_interface" "vm_nic" {
@@ -56,16 +57,16 @@ resource "azurerm_windows_virtual_machine" "vm" {
 
 }
 
-resource "azurerm_virtual_machine_extension" "antimalware" {
-  name                 = "Antimalware"
-  virtual_machine_id   = azurerm_windows_virtual_machine.vm.id
-  publisher            = "Microsoft.Azure.Security"
-  type                 = "IaaSAntimalware"
-  type_handler_version = "1.7"
+# resource "azurerm_virtual_machine_extension" "antimalware" {
+#   name                 = "Antimalware"
+#   virtual_machine_id   = azurerm_windows_virtual_machine.vm.id
+#   publisher            = "Microsoft.Azure.Security"
+#   type                 = "IaaSAntimalware"
+#   type_handler_version = "1.7"
 
-  settings = <<SETTINGS
-{
-  "AntimalwareEnabled": true
-}
-SETTINGS
-}
+#   settings = <<SETTINGS
+# {
+#   "AntimalwareEnabled": true
+# }
+# SETTINGS
+# }

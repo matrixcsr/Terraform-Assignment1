@@ -28,13 +28,19 @@ output "vm_domain_namesmain" {
   value = module.vmlinux.vm_domain_names
 }
 
-output "vm_private_ipsmain" {
+output "lin_vm_private_ipsmain" {
   value = module.vmlinux.vm_private_ips
 }
 
-output "vm_public_ipsmain" {
+output "lin_vm_public_ipsmain" {
   value = module.vmlinux.vm_public_ips
 }
-# output "lb_namemain" {
-#   value = module.loadbalancer.lb_name
-# }
+output "db" {
+  value = module.database.postgresql_server_name
+}
+output "win_vm_private_ip" {
+  value = module.vmwindows.private_ip_address
+}
+output "win_vm_public_ipsmain" {
+  value = module.vmwindows.public_ip_address
+}

@@ -33,7 +33,7 @@ module "vmlinux" {
 
   rg_name          = module.rg_group.rg_name
   subnet_id        = module.rg_network.subnet_id
-  dns_label        = "matrix8359.com"
+  dns_label        = "matrix8359"
   vm_count         = 2
   location         = module.rg_group.rg_location
   admin_username   = "linuxmatrix8359"
@@ -47,12 +47,13 @@ module "vmwindows" {
   rg_name          = module.rg_group.rg_name
   location         = module.rg_group.rg_location
   subnet_id        = module.rg_network.subnet_id
-  dns_label        = "windowsmatrix8359"
+  dns_label        = "nottrademarkmatrix8359"
   vm_name_prefix   = "vmwindows"
   vm_size          = "Standard_B2ms"
   admin_username   = "matrix8359"
   admin_password   = "Sherway938"
   storage_endpoint = module.common_resource.storage_endpoint
+  
 }
 
 module "datadisk" {

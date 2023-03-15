@@ -12,6 +12,7 @@ resource "azurerm_public_ip" "vm_public_ip" {
   location            = var.location
   resource_group_name = var.rg_name
   allocation_method   = "Static"
+  domain_name_label = "${var.dns_label}-${count.index}-gov"
 }
 
 resource "azurerm_network_interface" "vm_nic" {
