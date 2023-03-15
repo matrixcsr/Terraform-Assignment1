@@ -88,4 +88,5 @@ module "loadbalancer" {
     module.vmlinux.vm_ids[1],
     module.vmwindows.vm_id
   ]
+  subnet_id = module.rg_network.subnet_id
 }

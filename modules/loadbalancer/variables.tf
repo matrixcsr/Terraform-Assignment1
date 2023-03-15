@@ -13,3 +13,6 @@ variable "lb_name" {
 variable "vm_ids" {
   type        = list(string)
 }
+variable "subnet_id" {
+  type = string
+}

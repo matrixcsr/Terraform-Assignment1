@@ -20,15 +20,9 @@ resource "azurerm_lb_backend_address_pool" "vm_pool" {
   name            = "vm-pool"
   loadbalancer_id = azurerm_lb.lb.id
 
-
 }
 
-# dynamic "ip_address" {
-#   for_each = var.vm_ids
-#   content {
-#     ip_address = azurerm_network_interface.vm_nic[lookup(var.vm_nic_indices, ip_address.value)].private_ip_address
-#   }
-# }
+
 
 resource "azurerm_lb_probe" "http" {
   name             = "http-probe"
@@ -43,10 +37,11 @@ resource "azurerm_lb_probe" "http" {
 resource "azurerm_lb_rule" "http" {
   name                           = "http-rule"
   protocol                       = "Tcp"
-  frontend_port                  = 80
-  backend_port                   = 80
+  frontend_port                  = 8080
+  backend_port                   = 8080
   frontend_ip_configuration_name = "PublicIPAddress"
   probe_id                       = azurerm_lb_probe.http.id
   loadbalancer_id                = azurerm_lb.lb.id
+  backend_address_pool_ids        = [azurerm_lb_backend_address_pool.vm_pool.id]
 }
 
