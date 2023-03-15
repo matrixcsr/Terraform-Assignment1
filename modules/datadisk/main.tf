@@ -16,6 +16,6 @@ resource "azurerm_virtual_machine_data_disk_attachment" "datadisk_attachment" {
   count              = length(var.vm_ids)
   managed_disk_id    = azurerm_managed_disk.datadisk[count.index].id
   virtual_machine_id = var.vm_ids[count.index]
-  lun                = 10
+  lun                = count.index
   caching            = "ReadWrite"
 }
