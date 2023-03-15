@@ -31,28 +31,28 @@ module "common_resource" {
 module "vmlinux" {
   source = "./modules/vmlinux"
 
-  rg_name           = module.rg_group.rg_name
-  subnet_id         = module.rg_network.subnet_id
-  dns_label         = "matrix8359.com"
-  vm_count          = 2
-  location          = module.rg_group.rg_location
-  admin_username    = "linuxmatrix8359"
-  storage_endpoint  = module.common_resource.storage_endpoint
+  rg_name          = module.rg_group.rg_name
+  subnet_id        = module.rg_network.subnet_id
+  dns_label        = "matrix8359.com"
+  vm_count         = 2
+  location         = module.rg_group.rg_location
+  admin_username   = "linuxmatrix8359"
+  storage_endpoint = module.common_resource.storage_endpoint
   # spn_client_secret = "8359-secret"
 }
 
 module "vmwindows" {
   source = "./modules/vmwindows"
 
-  rg_name                      = module.rg_group.rg_name
-  location                     = module.rg_group.rg_location
-  subnet_id                    = module.rg_network.subnet_id
-  dns_label                    = "windowsmatrix8359"
-  vm_name_prefix               = "vmwindows"
-  vm_size                      = "Standard_B2ms"
-  admin_username               = "matrix8359"
-  admin_password               = "Sherway938"
-  boot_diagnostics_storage_uri = "https://mystorageaccount.blob.core.windows.net"
+  rg_name          = module.rg_group.rg_name
+  location         = module.rg_group.rg_location
+  subnet_id        = module.rg_network.subnet_id
+  dns_label        = "windowsmatrix8359"
+  vm_name_prefix   = "vmwindows"
+  vm_size          = "Standard_B2ms"
+  admin_username   = "matrix8359"
+  admin_password   = "Sherway938"
+  storage_endpoint = module.common_resource.storage_endpoint
 }
 
 module "datadisk" {

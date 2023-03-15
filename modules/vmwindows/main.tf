@@ -4,14 +4,13 @@ resource "azurerm_availability_set" "as" {
   resource_group_name          = var.rg_name
   platform_fault_domain_count  = 2
   platform_update_domain_count = 5
-
 }
 
 resource "azurerm_public_ip" "vm_public_ip" {
   name                = "${var.vm_name_prefix}-publicip"
   location            = var.location
   resource_group_name = var.rg_name
-  allocation_method   = "Static"
+  allocation_method   = "Dynamic"
 }
 
 resource "azurerm_network_interface" "vm_nic" {
@@ -39,10 +38,9 @@ resource "azurerm_windows_virtual_machine" "vm" {
     azurerm_network_interface.vm_nic.id,
   ]
 
-  # boot_diagnostics {
-  #   enabled     = true
-  #   storage_uri = var.boot_diagnostics_storage_uri
-  # }
+  boot_diagnostics {
+    storage_account_uri = var.storage_endpoint
+  }
 
   os_disk {
     caching              = "ReadWrite"
@@ -56,27 +54,18 @@ resource "azurerm_windows_virtual_machine" "vm" {
     version   = "latest"
   }
 
-  #   extension {
-  #     name                 = "IaaSAntimalware"
-  #     publisher            = "Microsoft.Azure.Security"
-  #     type                 = "IaaSAntimalware"
-  #     type_handler_version = var.antimalware_extension_version
-  #     settings             = <<SETTINGS
-  #       {
-  #         "AntimalwareEnabled": true,
-  #         "RealtimeProtectionEnabled": true,
-  #         "ScheduledScanSettings": {
-  #           "isEnabled": true,
-  #           "day": "1",
-  #           "time": "120"
-  #         },
-  #         "Exclusions": {
-  #           "Extensions": "",
-  #           "Paths": ""
-  #         },
-  #         "MonitoringMode": 1,
-  #         "ThreatSeverityDefaultAction": 4
-  #       }
-  # SETTINGS
-  #   }
+}
+
+resource "azurerm_virtual_machine_extension" "antimalware" {
+  name                 = "Antimalware"
+  virtual_machine_id   = azurerm_windows_virtual_machine.vm.id
+  publisher            = "Microsoft.Azure.Security"
+  type                 = "IaaSAntimalware"
+  type_handler_version = "1.7"
+
+  settings = <<SETTINGS
+{
+  "AntimalwareEnabled": true
+}
+SETTINGS
 }

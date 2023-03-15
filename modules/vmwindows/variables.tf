@@ -30,12 +30,11 @@ variable "admin_password" {
   type = string
 }
 
-variable "boot_diagnostics_storage_uri" {
-  description = "URI of the storage account to use for boot diagnostics."
-  type        = string
-}
 
 variable "antimalware_extension_version" {
 
   default = "2.2"
+}
+variable "storage_endpoint" {
+  type = string
 }
