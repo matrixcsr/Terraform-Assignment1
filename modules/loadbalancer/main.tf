@@ -45,3 +45,10 @@ resource "azurerm_lb_rule" "http" {
   backend_address_pool_ids        = [azurerm_lb_backend_address_pool.vm_pool.id]
 }
 
+/* resource "azurerm_network_interface_backend_address_pool_association" "backend_pool_association" {
+  count = length(var.linux_vm_nic_ids)
+
+  network_interface_id    = var.linux_vm_nic_ids[count.index]
+  ip_configuration_name   = "ipconfig"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.backend_pool.id
+} */

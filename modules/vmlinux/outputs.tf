@@ -16,3 +16,8 @@ output "vm_public_ips" {
 output "vm_ids" {
   value = [for vm in azurerm_linux_virtual_machine.vm : vm.id]
 }
+
+output "vm_nic_ids" {
+  value = [for nic in azurerm_network_interface.vm_nic : nic.id ]
+ 
+}

@@ -16,3 +16,6 @@ variable "vm_ids" {
 variable "subnet_id" {
   type = string
 }
+/* variable "linux_vm_nic_ids" {
+  type = list(string)
+} */
